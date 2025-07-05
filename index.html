@@ -1,147 +1,209 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
+
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Formulário S.H.W | Clan FARM</title>
-<style>
-    body {
-        background-color: #0f172a;
-        color: #f1f5f9;
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-    }
-    header {
-        background-color: #1e293b;
-        padding: 20px;
-        text-align: center;
-    }
-    header h1 {
-        margin: 0;
-        color: #38bdf8;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 8px;
-    }
-    main {
-        max-width: 800px;
-        margin: 40px auto;
-        padding: 20px;
-        background-color: #1e293b;
-        border-radius: 12px;
-        box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-    }
-    label {
-        display: block;
-        margin-top: 15px;
-        font-weight: bold;
-    }
-    input, textarea {
-        width: 100%;
-        padding: 10px;
-        margin-top: 5px;
-        border: none;
-        border-radius: 8px;
-        background-color: #334155;
-        color: white;
-    }
-    button {
-        margin-top: 20px;
-        padding: 12px 20px;
-        background-color: #38bdf8;
-        border: none;
-        border-radius: 8px;
-        color: #0f172a;
-        font-weight: bold;
-        cursor: pointer;
-        transition: background-color 0.3s;
-    }
-    button:hover {
-        background-color: #0ea5e9;
-    }
-</style>
-</head>
-<body>
-
-<header>
-    <h1><img src="https://cdn.discordapp.com/emojis/1302255828102811679.png" alt=":revisao:" style="height: 32px;" /> S.H.W | Clan FARM</h1>
-</header>
-
-<main>
-    <form id="formulario">
-        <label>1. Qual seu nick no Minecraft?</label>
-        <input type="text" name="Nick" required>
-
-        <label>2. Qual sua idade? (Mínimo: 13 anos)</label>
-        <input type="number" name="Idade" min="13" required>
-
-        <label>3. Qual seu Discord?</label>
-        <input type="text" name="Discord" required>
-
-        <label>4. Qual seu nome na vida real?</label>
-        <input type="text" name="Nome Real" required>
-
-        <label>5. Por que você quer entrar no clan?</label>
-        <textarea name="Motivo" rows="3" required></textarea>
-
-        <label>6. Você já participou de algum clan? Se sim, qual?</label>
-        <textarea name="Clans anteriores" rows="2"></textarea>
-
-        <label>7. Você tem experiência em farm? (Spawners, cactos, mobs, etc.)</label>
-        <textarea name="Experiência em farm" rows="2" required></textarea>
-
-        <label>8. Você consegue ficar AFK por bastante tempo para ajudar no farm?</label>
-        <input type="text" name="AFK" required>
-
-        <label>9. Você sabe trabalhar em equipe?</label>
-        <input type="text" name="Trabalho em equipe" required>
-
-        <label>10. Você aceita cumprir as metas semanais?</label>
-        <input type="text" name="Aceita metas semanais" required>
-
-        <label>11. Você pretende ajudar com eventos ou projetos do clan?</label>
-        <input type="text" name="Ajudar com eventos" required>
-
-        <label>12. Você está disposto(a) a respeitar todos os membros do clan?</label>
-        <input type="text" name="Respeito aos membros" required>
-
-        <label>13. Quanto tempo por dia você costuma jogar?</label>
-        <input type="text" name="Tempo de jogo diário" required>
-
-        <label>14. Você tem alguma habilidade extra? (Ex: construção, PVP, decoração, automação)</label>
-        <label><input type="radio" name="Habilidade extra" value="Sim" required> Sim</label>
-        <label><input type="radio" name="Habilidade extra" value="Não" required> Não</label>
-
-        <label>15. Tem algo a mais que queira falar sobre você?</label>
-        <textarea name="Informações adicionais" rows="3"></textarea>
-
-        <button type="submit">Enviar Formulário</button>
-    </form>
-</main>
-
-<script>
-    document.getElementById('formulario').addEventListener('submit', async function(e) {
-        e.preventDefault();
-
-        const formData = new FormData(e.target);
-        let mensagem = '**📋 Nova Resposta no Formulário S.H.W:**\n\n';
-
-        for (let [key, value] of formData.entries()) {
-            mensagem += `**${key}:** ${value}\n`;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário S.H.W</title>
+    <link href="https://fonts.cdnfonts.com/css/minecraft-4" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to bottom, #3a3a3a, #000000);
+            color: white;
+            font-family: Arial, sans-serif;
+            padding: 20px;
         }
 
-        await fetch('https://canary.discord.com/api/webhooks/1390845464147922974/btODhi1yC9UrfmtL3jlk6BiuoB69CVIapi9ugt-WKUz7_nYhx2u4-MRSscqHmw92rtYt', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ content: mensagem })
+        h1 {
+            font-family: 'Minecraft', sans-serif;
+            color: white;
+            text-align: center;
+            text-shadow: 2px 2px 5px #000000;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: none;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 15px;
+            background-color: #1e90ff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0d6efd;
+        }
+
+        .mensagem {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            font-size: 24px;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 9999;
+        }
+
+        #okBtn {
+            margin-top: 20px;
+            padding: 10px 15px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #okBtn:hover {
+            background-color: #218838;
+        }
+
+        .mensagem-alerta {
+            margin-top: 20px;
+            color: #00ff00;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>▪️ S.H.W - Show's ▪️</h1>
+
+    <form id="formulario">
+        <label>Qual seu Discord?</label>
+        <input type="text" name="Discord" required>
+
+        <label>Qual seu nick no Minecraft?</label>
+        <input type="text" name="Nick" required>
+
+        <label>Qual sua idade? (Mínimo: 13 anos)</label>
+        <input type="number" name="Idade" required>
+
+        <label>Qual seu nome na vida real?</label>
+        <input type="text" name="Nome" required>
+
+        <label>Por que você quer entrar no clan?</label>
+        <textarea name="Motivo" required></textarea>
+
+        <label>Você já participou de algum clan? Se sim, qual?</label>
+        <textarea name="Clan Antigo"></textarea>
+
+        <label>Você tem experiência em farm? (Spawners, cactos, mobs, etc.)</label>
+        <textarea name="Experiência em Farm" required></textarea>
+
+        <label>Você consegue ficar AFK por bastante tempo para ajudar no farm?</label>
+        <input type="text" name="AFK" required>
+
+        <label>Você sabe trabalhar em equipe?</label>
+        <input type="text" name="Equipe" required>
+
+        <label>Você aceita cumprir as metas semanais?</label>
+        <input type="text" name="Metas" required>
+
+        <label>Você pretende ajudar com eventos ou projetos do clan?</label>
+        <input type="text" name="Eventos" required>
+
+        <label>Você está disposto(a) a respeitar todos os membros do clan?</label>
+        <input type="text" name="Respeito" required>
+
+        <label>Quanto tempo por dia você costuma jogar?</label>
+        <input type="text" name="Tempo de Jogo" required>
+
+        <label>Você tem alguma habilidade extra? (Ex: construção, PVP, decoração, automação)</label>
+        <input type="text" name="Habilidade Extra" required>
+
+        <label>Tem algo a mais que queira falar sobre você?</label>
+        <textarea name="Informação Extra"></textarea>
+
+        <button type="submit" id="enviarBtn">Enviar Formulário</button>
+        <button type="button" id="limparBtn" style="margin-left: 10px;">Limpar Formulário</button>
+    </form>
+
+    <div id="mensagemEnviada" class="mensagem">
+        <div>FORMULÁRIO ENVIADO</div>
+        <button id="okBtn">OK</button>
+    </div>
+
+    <div id="mensagemAlerta" class="mensagem-alerta"></div>
+
+    <script>
+        let contadorClique = 0;
+        let podeEnviar = true;
+
+        document.getElementById('formulario').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            if (!podeEnviar) {
+                document.getElementById('mensagemAlerta').innerText = 'Aguarde 10 segundos para enviar novamente!';
+                return;
+            }
+
+            const form = e.target;
+            const dados = new FormData(form);
+            let mensagem = '';
+
+            for (const [chave, valor] of dados.entries()) {
+                mensagem += `**${chave}:** ${valor}\n`;
+            }
+
+            fetch('https://canary.discord.com/api/webhooks/1390845464147922974/btODhi1yC9UrfmtL3jlk6BiuoB69CVIapi9ugt-WKUz7_nYhx2u4-MRSscqHmw92rtYt', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ content: mensagem })
+            }).then(() => {
+                document.getElementById('mensagemEnviada').style.display = 'flex';
+                podeEnviar = false;
+                document.getElementById('mensagemAlerta').innerText = '';
+
+                setTimeout(() => {
+                    podeEnviar = true;
+                    document.getElementById('mensagemAlerta').innerText = '';
+                }, 10000); // 10 segundos
+            }).catch(() => {
+                document.getElementById('mensagemAlerta').innerText = 'Erro ao enviar o formulário.';
+            });
         });
 
-        alert('✅ Formulário enviado com sucesso!');
-        e.target.reset();
-    });
-</script>
+        document.getElementById('okBtn').addEventListener('click', function () {
+            document.getElementById('mensagemEnviada').style.display = 'none';
+        });
+
+        document.getElementById('limparBtn').addEventListener('click', function () {
+            contadorClique++;
+
+            if (contadorClique === 1) {
+                document.getElementById('mensagemAlerta').innerText = 'Clique Novamente';
+            } else if (contadorClique === 2) {
+                document.getElementById('formulario').reset();
+                document.getElementById('mensagemAlerta').innerText = 'Formulário Limpo!';
+                contadorClique = 0;
+            }
+        });
+    </script>
 
 </body>
+
 </html>
