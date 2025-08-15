@@ -1,209 +1,160 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulário S.H.W</title>
-    <link href="https://fonts.cdnfonts.com/css/minecraft-4" rel="stylesheet">
-    <style>
-        body {
-            background: linear-gradient(to bottom, #3a3a3a, #000000);
-            color: white;
-            font-family: Arial, sans-serif;
-            padding: 20px;
-        }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>odeiojob — clone simples</title>
+  
+  <!-- Fonte Fraktur Bold -->
+  <style>
+    @font-face {
+      font-family: 'FrakturBold';
+      src: url('EuclidFraktur-Bold.ttf') format('truetype'); /* coloque o caminho correto para o .ttf */
+      font-weight: bold;
+      font-style: normal;
+    }
+  </style>
+  
+  <style>
+    :root {
+      --bg: #0b0b0b;
+      --card: #121212;
+      --muted: #9aa0a6;
+      --text: #e6e6e6;
+      --accent: #ffffff;
+      --ring: rgba(255,255,255,0.15);
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin:0; }
+    body {
+      font: 16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      display: grid;
+      place-items: center;
+      overflow-x: hidden;
+      background: radial-gradient(1000px 700px at 50% -20%, rgba(255,255,255,.05), transparent), var(--bg);
+      color: var(--text);
+    }
 
-        h1 {
-            font-family: 'Minecraft', sans-serif;
-            color: white;
-            text-align: center;
-            text-shadow: 2px 2px 5px #000000;
-        }
+    /* Tela de clique */
+    #intro {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      cursor: pointer;
+      pointer-events: all;
+    }
+    #intro h1 {
+      font-family: 'FrakturBold', sans-serif; /* Fonte aplicada apenas aqui */
+      font-size: 32px;
+      color: white;
+      user-select: none;
+    }
 
-        label {
-            display: block;
-            margin-top: 15px;
-        }
+    /* flocos simples */
+    .flakes { position: fixed; inset: 0; pointer-events: none; z-index: 1; }
+    .flake { position: absolute; opacity: .6; font-size: clamp(14px, 1.5vw, 24px); animation: fall linear infinite; }
+    @keyframes fall {
+      0% { transform: translateY(-10vh) translateX(0) rotate(0deg); opacity: 0; }
+      10% { opacity: 0.6; }
+      100% { transform: translateY(110vh) translateX(0) rotate(360deg); opacity: 0.6; }
+    }
+    @keyframes fallCurve {
+      0% { transform: translateY(-10vh) translateX(0) rotate(0deg); opacity: 0; }
+      10% { opacity: 0.6; }
+      50% { transform: translateY(50vh) translateX(20px) rotate(180deg); }
+      100% { transform: translateY(110vh) translateX(-10px) rotate(360deg); opacity: 0.6; }
+    }
 
-        input,
-        textarea {
-            width: 100%;
-            padding: 8px;
-            margin-top: 5px;
-            border-radius: 5px;
-            border: none;
-        }
+    /* Card do site */
+    .card {
+      position: relative;
+      z-index: 2;
+      width: min(560px, 92vw);
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+      border: 1px solid var(--ring);
+      border-radius: 22px;
+      box-shadow: 0 10px 40px rgba(0,0,0,.5);
+      padding: 32px 28px;
+      text-align: center;
+      backdrop-filter: blur(6px);
+      display: none; /* começa escondido */
+    }
+    .avatar {
+      width: 140px; height: 140px; border-radius: 20px; object-fit: cover; display: block; margin: 0 auto 18px;
+      border: 1px solid var(--ring);
+    }
+    h1 { font-size: clamp(28px, 5vw, 40px); margin: 6px 0 8px; letter-spacing: .4px; }
+    .tagline { color: var(--muted); font-size: 15px; margin-bottom: 18px; }
 
-        button {
-            margin-top: 20px;
-            padding: 10px 15px;
-            background-color: #1e90ff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+    .links { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin: 6px 0 2px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 14px; border-radius: 999px; border: 1px solid var(--ring);
+      background: rgba(255,255,255,.03); color: var(--text); text-decoration: none; font-weight: 600;
+      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+    }
+    .btn:hover { transform: translateY(-2px); background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.25); }
 
-        button:hover {
-            background-color: #0d6efd;
-        }
-
-        .mensagem {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            color: white;
-            font-size: 24px;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            z-index: 9999;
-        }
-
-        #okBtn {
-            margin-top: 20px;
-            padding: 10px 15px;
-            background-color: #28a745;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        #okBtn:hover {
-            background-color: #218838;
-        }
-
-        .mensagem-alerta {
-            margin-top: 20px;
-            color: #00ff00;
-            font-weight: bold;
-            text-align: center;
-        }
-    </style>
+    .footer { margin-top: 18px; color: var(--muted); font-size: 13px; }
+    .footer a { color: #ff6b81; text-decoration: none; font-weight: 700; }
+  </style>
 </head>
-
 <body>
 
-    <h1>▪️ S.H.W - Show's ▪️</h1>
+  <!-- Tela de clique -->
+  <div id="intro">
+    <h1>Clique</h1>
+  </div>
 
-    <form id="formulario">
-        <label>Qual seu Discord?</label>
-        <input type="text" name="Discord" required>
+  <!-- flocos -->
+  <div class="flakes" id="flakes"></div>  
 
-        <label>Qual seu nick no Minecraft?</label>
-        <input type="text" name="Nick" required>
-
-        <label>Qual sua idade? (Mínimo: 13 anos)</label>
-        <input type="number" name="Idade" required>
-
-        <label>Qual seu nome na vida real?</label>
-        <input type="text" name="Nome" required>
-
-        <label>Por que você quer entrar no clan?</label>
-        <textarea name="Motivo" required></textarea>
-
-        <label>Você já participou de algum clan? Se sim, qual?</label>
-        <textarea name="Clan Antigo"></textarea>
-
-        <label>Você tem experiência em farm? (Spawners, cactos, mobs, etc.)</label>
-        <textarea name="Experiência em Farm" required></textarea>
-
-        <label>Você consegue ficar AFK por bastante tempo para ajudar no farm?</label>
-        <input type="text" name="AFK" required>
-
-        <label>Você sabe trabalhar em equipe?</label>
-        <input type="text" name="Equipe" required>
-
-        <label>Você aceita cumprir as metas semanais?</label>
-        <input type="text" name="Metas" required>
-
-        <label>Você pretende ajudar com eventos ou projetos do clan?</label>
-        <input type="text" name="Eventos" required>
-
-        <label>Você está disposto(a) a respeitar todos os membros do clan?</label>
-        <input type="text" name="Respeito" required>
-
-        <label>Quanto tempo por dia você costuma jogar?</label>
-        <input type="text" name="Tempo de Jogo" required>
-
-        <label>Você tem alguma habilidade extra? (Ex: construção, PVP, decoração, automação)</label>
-        <input type="text" name="Habilidade Extra" required>
-
-        <label>Tem algo a mais que queira falar sobre você?</label>
-        <textarea name="Informação Extra"></textarea>
-
-        <button type="submit" id="enviarBtn">Enviar Formulário</button>
-        <button type="button" id="limparBtn" style="margin-left: 10px;">Limpar Formulário</button>
-    </form>
-
-    <div id="mensagemEnviada" class="mensagem">
-        <div>FORMULÁRIO ENVIADO</div>
-        <button id="okBtn">OK</button>
+  <!-- Site completo -->
+  <main class="card" role="main">
+    <img class="avatar" src="https://i.imgur.com/BEVfaCe.png" alt="avatar" />
+    <h1>odeiojob</h1>
+    <p class="tagline">Without God, don't even try.</p>
+    <div class="links">
+      <a class="btn" href="https://discord.gg/2q9uNH9rDn" target="_blank" rel="noopener">Discord</a>
+      <a class="btn" href="https://open.spotify.com/user/31ix4nu766e5k46kif634pe42izy?si=Q8zUUAsmS3qHVnjnorN1qw" target="_blank" rel="noopener">Spotify</a>
+      <a class="btn" href="https://youtube.com/@odeiojob?si=tUgG2CLbY1eSKNhT" target="_blank" rel="noopener">YouTuber</a>
     </div>
+    <p class="footer">- Made by Me -</p>
+  </main>  
 
-    <div id="mensagemAlerta" class="mensagem-alerta"></div>
+  <script>
+    // Esconde a tela de clique e mostra o site completo
+    document.getElementById('intro').addEventListener('click', function() {
+      this.style.display = 'none';
+      document.querySelector('.card').style.display = 'block';
+    });
 
-    <script>
-        let contadorClique = 0;
-        let podeEnviar = true;
+    // Flocos
+    const emojis = ["*","*","*"];
+    const flakesContainer = document.getElementById('flakes');
+    const COUNT = 60;
 
-        document.getElementById('formulario').addEventListener('submit', function (e) {
-            e.preventDefault();
+    function createFlake() {
+      const flake = document.createElement('span');
+      flake.className = 'flake';
+      flake.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      flake.style.left = Math.random() * 100 + 'vw';
+      flake.style.fontSize = (12 + Math.random() * 16) + 'px';
+      flake.style.animationDuration = (6 + Math.random() * 8) + 's';
+      flake.style.animationName = Math.random() < 0.5 ? 'fallCurve' : 'fall';
+      flakesContainer.appendChild(flake);
+      flake.addEventListener('animationend', () => {
+        flakesContainer.removeChild(flake);
+        createFlake();
+      });
+    }
 
-            if (!podeEnviar) {
-                document.getElementById('mensagemAlerta').innerText = 'Aguarde 10 segundos para enviar novamente!';
-                return;
-            }
-
-            const form = e.target;
-            const dados = new FormData(form);
-            let mensagem = '';
-
-            for (const [chave, valor] of dados.entries()) {
-                mensagem += `**${chave}:** ${valor}\n`;
-            }
-
-            fetch('https://canary.discord.com/api/webhooks/1390845464147922974/btODhi1yC9UrfmtL3jlk6BiuoB69CVIapi9ugt-WKUz7_nYhx2u4-MRSscqHmw92rtYt', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ content: mensagem })
-            }).then(() => {
-                document.getElementById('mensagemEnviada').style.display = 'flex';
-                podeEnviar = false;
-                document.getElementById('mensagemAlerta').innerText = '';
-
-                setTimeout(() => {
-                    podeEnviar = true;
-                    document.getElementById('mensagemAlerta').innerText = '';
-                }, 10000); // 10 segundos
-            }).catch(() => {
-                document.getElementById('mensagemAlerta').innerText = 'Erro ao enviar o formulário.';
-            });
-        });
-
-        document.getElementById('okBtn').addEventListener('click', function () {
-            document.getElementById('mensagemEnviada').style.display = 'none';
-        });
-
-        document.getElementById('limparBtn').addEventListener('click', function () {
-            contadorClique++;
-
-            if (contadorClique === 1) {
-                document.getElementById('mensagemAlerta').innerText = 'Clique Novamente';
-            } else if (contadorClique === 2) {
-                document.getElementById('formulario').reset();
-                document.getElementById('mensagemAlerta').innerText = 'Formulário Limpo!';
-                contadorClique = 0;
-            }
-        });
-    </script>
-
+    for (let i = 0; i < COUNT; i++) {
+      setTimeout(createFlake, Math.random() * 5000);
+    }
+  </script>
 </body>
-
 </html>
